@@ -1,4 +1,4 @@
-name: Satuzinki
+name: McBbPlugin
 main: com.gmail.sitoa.McbbPlugin.McBbPlugin
 version: 1.0
 
@@ -7,9 +7,6 @@ commands:
        permission: McBbPlugin.permission
        permission-message: You don't have permission
      gamestop:
-       permission: McBbPlugin.permission
-       permission-message: You don't have permission
-     ranjoin:
        permission: McBbPlugin.permission
        permission-message: You don't have permission
      playerjoin:

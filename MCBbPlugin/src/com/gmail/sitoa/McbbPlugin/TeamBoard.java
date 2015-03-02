@@ -6,17 +6,26 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 public class TeamBoard {
-	
+
 	static Plugin p;
 	TeamBoard(Plugin pl){
 		p = pl;
 		Scoreboard board = p.getServer().getScoreboardManager().getMainScoreboard();
-		Team red = board.registerNewTeam("Red");
-		Team white = board.registerNewTeam("White");
+		Team red;
+		Team white;
+		if(board.getTeam("Red") == null){
+		 red = board.registerNewTeam("Red");
+		 white = board.registerNewTeam("White");
+		}else{
+			red = board.getTeam("Red");
+			white = board.getTeam("White");
+		}
 		red.setPrefix("§4");
 		white.setPrefix("§f");
+		red.setSuffix("§4");
+		white.setSuffix("§f");
 	}
-	
+
 	public static void addPlayer(String team,Player player){
 		Scoreboard board = p.getServer().getScoreboardManager().getMainScoreboard();
 		Team redteam = board.getTeam("Red");
@@ -31,7 +40,7 @@ public class TeamBoard {
 			if(redteam.getPlayers().contains(player)){
 				redteam.removePlayer(player);
 			}
-			
+
 			teams = whiteteam;
 		}
 		teams.addPlayer(player);
@@ -56,9 +65,9 @@ public class TeamBoard {
 		Team white = board.registerNewTeam("White");
 		red.setPrefix("§4");
 		white.setPrefix("§f");
-		
+
 	}
-	
-	
+
+
 
 }

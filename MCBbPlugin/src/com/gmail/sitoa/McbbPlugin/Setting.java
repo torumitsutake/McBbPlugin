@@ -21,10 +21,11 @@ public class Setting {
 		cfg.set("RespawnPoint."+team+".x", x);
 		cfg.set("RespawnPoint."+team+".y", y);
 		cfg.set("RespawnPoint."+team+".z", z);
+		p.saveConfig();
 	}
 	public void setGameTime(int time){
-		
-		
+		cfg.set("GameTime", time);
+		p.saveConfig();
 	}
 	
 	
