@@ -24,6 +24,8 @@ public class TeamBoard {
 		white.setPrefix("§f");
 		red.setSuffix("§4");
 		white.setSuffix("§f");
+		red.setAllowFriendlyFire(false);
+		white.setAllowFriendlyFire(false);
 	}
 
 	public static void addPlayer(String team,Player player){
@@ -55,6 +57,7 @@ public class TeamBoard {
 		}
 		teams.removePlayer(player);
 	}
+	
 	public static void clearTeam(){
 		Scoreboard board = p.getServer().getScoreboardManager().getMainScoreboard();
 		Team teams =  board.getTeam("Red");
@@ -65,6 +68,8 @@ public class TeamBoard {
 		Team white = board.registerNewTeam("White");
 		red.setPrefix("§4");
 		white.setPrefix("§f");
+		red.setAllowFriendlyFire(false);
+		white.setAllowFriendlyFire(false);
 
 	}
 

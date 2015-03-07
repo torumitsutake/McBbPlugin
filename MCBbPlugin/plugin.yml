@@ -1,6 +1,6 @@
 name: McBbPlugin
 main: com.gmail.sitoa.McbbPlugin.McBbPlugin
-version: 1.0
+version: 1.5
 
 commands:
      gamestart:

@@ -19,7 +19,7 @@ public class ScoreBoardClass {
 	Scoreboard board ;
 
 	Objective obj;
-	 McBbPlugin p;
+	 static McBbPlugin p;
 	 Score score1 ;
 	Score redticket;
 	Score whiteticket;
@@ -28,21 +28,17 @@ public class ScoreBoardClass {
 	}
 	public void connectSB(){
 		manager = Bukkit.getScoreboardManager();
-		board = manager.getNewScoreboard();
+		board = manager.getMainScoreboard();
 
 		obj = board.registerNewObjective(ChatColor.AQUA+"GameInfo", "dummy");
 		score1 = obj.getScore(ChatColor.GREEN+"GameTime:");
 		redticket = obj.getScore(ChatColor.RED+"RedPoint");
 		whiteticket = obj.getScore(ChatColor.WHITE+"WhitePoint");
-		score1.setScore(1);
-		redticket.setScore(2);
-		whiteticket.setScore(3);
+		score1.setScore(0);
+		redticket.setScore(0);
+		whiteticket.setScore(0);
 		board.clearSlot(DisplaySlot.SIDEBAR);
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-		for(Player target:p.getServer().getOnlinePlayers()){
-			target.setScoreboard(board);
-
-		}
 
 	}
 
@@ -60,6 +56,15 @@ public class ScoreBoardClass {
 
 				if(second <= 0){
 					Bukkit.getScheduler().cancelTask(i);
+					if(redticket.getScore() > whiteticket.getScore()){
+						Bukkit.broadcastMessage(ChatColor.RED+"Redチームの勝利です。");
+					}else if(redticket.getScore() > whiteticket.getScore()){
+
+					}else{
+						Bukkit.broadcastMessage(ChatColor.AQUA+"引き分けです！");
+
+					}
+					Bukkit.broadcastMessage(ChatColor.AQUA+"ゲーム終了しました。");
 					p.gamefinish();
 				}
 
@@ -78,12 +83,30 @@ public class ScoreBoardClass {
 		}else{
 			sco=ChatColor.WHITE+"WhitePoint";
 		}
-		Score score = Bukkit.getScoreboardManager().getNewScoreboard().getObjective(ChatColor.AQUA+"GameInfo").getScore(sco);
+		Score score = Bukkit.getScoreboardManager().getMainScoreboard().getObjective(ChatColor.AQUA+"GameInfo").getScore(sco);
 		int scoreamount = score.getScore();
+		int i = p.getConfig().getInt("WinPoint");
+
 		scoreamount = scoreamount+amount;
+		if(i-scoreamount == 10){
+			Bukkit.broadcastMessage(ChatColor.AQUA+team+"チームが残り10キルになりました。");
+		}
+		if(i-scoreamount <= 0){
+			Bukkit.broadcastMessage(ChatColor.AQUA+team+"が、勝利キル数に達しました！");
+
+			p.gamefinish();
+		}
+
 		score.setScore(scoreamount);
+	}
+
+	public static void resetScore(){
+		Bukkit.getScoreboardManager().getMainScoreboard().getObjective(ChatColor.AQUA+"GameInfo").unregister();
+
+
+	}
 	}
 
 
 
-}
+

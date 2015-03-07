@@ -2,8 +2,10 @@ package com.gmail.sitoa.McbbPlugin;
 
 
 import net.md_5.bungee.api.ChatColor;
+import net.minecraft.server.v1_8_R1.Packet;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,13 +24,70 @@ public class CommandClass implements CommandExecutor {
 			return true;
 		}
 		if(cmd.getName().equalsIgnoreCase("gamestop")){
-
+			p.gamefinish();
 			return true;
 		}
 
 		if(cmd.getName().equalsIgnoreCase("ranjoin")){
 
 			return true;
+		}
+
+		if(cmd.getName().equalsIgnoreCase("setting")){
+			if(args[0].equalsIgnoreCase("test")){
+				//PacketTest
+			}
+
+			if(args[0].equalsIgnoreCase("spawnpoint")){
+				if(args[1].equalsIgnoreCase("white")){
+					int x = Integer.valueOf(args[2]);
+					int y= Integer.valueOf(args[3]);
+					int z = Integer.valueOf(args[4]);
+					p.getConfig().set("RespawnPoint.White.x", x);
+					p.getConfig().set("RespawnPoint.White.y", y);
+					p.getConfig().set("RespawnPoint.White.z", z);
+					p.saveConfig();
+					sender.sendMessage(ChatColor.RED+"設定完了しました。");
+
+				}
+				if(args[1].equalsIgnoreCase("red")){
+					int x = Integer.valueOf(args[2]);
+					int y= Integer.valueOf(args[3]);
+					int z = Integer.valueOf(args[4]);
+					p.getConfig().set("RespawnPoint.Red.x", x);
+					p.getConfig().set("RespawnPoint.Red.y", y);
+					p.getConfig().set("RespawnPoint.Red.z", z);
+					sender.sendMessage(ChatColor.RED+"設定完了しました。");
+					p.saveConfig();
+					
+				}else{
+					sender.sendMessage(ChatColor.RED+"チーム名を正しく設定してください");
+				}
+
+
+
+			}
+
+
+			if(args[0].equalsIgnoreCase("gametime")){
+				int i = Integer.valueOf(args[1]);
+				p.getConfig().set("GameTime", i);
+				p.saveConfig();
+				sender.sendMessage(ChatColor.RED+"設定完了しました。");
+			}
+			if(args[0].equalsIgnoreCase("winpoint")){
+				int i = Integer.valueOf(args[1]);
+				p.getConfig().set("WinPoint", i);
+				p.saveConfig();
+			}
+
+
+			return true;
+		}
+
+		if(cmd.getName().equalsIgnoreCase("playerjoin")){
+
+
 		}
 
 		if(cmd.getName().equalsIgnoreCase("playerjoin")){
@@ -53,7 +112,6 @@ public class CommandClass implements CommandExecutor {
 
 
 		}
-
 
 
 		return false;
